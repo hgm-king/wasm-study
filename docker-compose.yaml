@@ -1,0 +1,21 @@
+---  # Main
+version: '3'
+services:
+
+  wasm:
+    build: ./src/wasm
+    container_name: wasm
+    volumes:
+      - ./src:/src
+    command: tail -f /dev/null
+
+  frontend:
+    build: ./src/frontend
+    container_name: frontend
+    volumes:
+      - ./src:/src
+    command: tail -f /dev/null
+    ports:
+      - '4000:8080'
+
+...
