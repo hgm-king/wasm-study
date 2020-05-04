@@ -6,6 +6,6 @@ You need the following to run
 - npm
 
 To build and then run locally, use the following:
-- in root directory :: `wasm-pack build`
-- in www directory :: `npm run serve`
+- in webapp directory :: `wasm-pack build`
+- in webapp/www directory :: `npm run serve`
 - look at `localhost:8080` to see it live!
