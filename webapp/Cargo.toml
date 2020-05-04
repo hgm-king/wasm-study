@@ -4,7 +4,14 @@ version = "0.1.0"
 authors = ["hg.king <hg_king@external.mckinsey.com>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib"]
 
 [dependencies]
-yew = { version = "0.15", package = "yew-stdweb" }
+strum = "0.18"
+strum_macros = "0.18"
+serde = "1"
+serde_derive = "1"
+yew = "0.15"
+wasm-bindgen = "0.2.62"
+web-sys = "0.3.39"

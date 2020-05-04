@@ -1,4 +1,17 @@
+
+mod components;
+pub use crate::components::header;
+
+use web_sys::Window;
 use yew::prelude::*;
+use std::error::Error;
+
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen]
+extern "C" {
+    fn alert(s: &str);
+}
 
 struct Model {
     link: ComponentLink<Self>,
@@ -12,10 +25,11 @@ enum Msg {
 impl Component for Model {
     type Message = Msg;
     type Properties = ();
+
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
         Self {
             link,
-            value: 0,
+            value: 1,
         }
     }
 
@@ -23,6 +37,8 @@ impl Component for Model {
         match msg {
             Msg::AddOne => self.value += 1
         }
+        let window: web_sys::Window = web_sys::window().expect("window not available");
+        window.alert_with_message("hello from wasm!").expect("alert failed");
         true
     }
 
@@ -35,8 +51,8 @@ impl Component for Model {
 
     fn view(&self) -> Html {
         html! {
-            <div>
-                <h1>{"Hello World"}</h1>
+            <div class={"main"}>
+                <components::header::Header />
                 <button onclick=self.link.callback(|_| Msg::AddOne)>{ "+1" }</button>
                 <p>{ self.value }</p>
             </div>
@@ -44,7 +60,9 @@ impl Component for Model {
     }
 }
 
-fn main() {
+#[wasm_bindgen(start)]
+pub fn run() {
+    alert(&format!("Hello, World!!"));
     yew::initialize();
     App::<Model>::new().mount_to_body();
 }
